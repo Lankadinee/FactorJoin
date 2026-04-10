@@ -15,7 +15,8 @@ def gen_job_light_imdb_schema(csv_path):
     schema.add_table(Table('title', attributes=['id', 'title', 'imdb_index', 'kind_id', 'production_year', 'imdb_id',
                                                 'phonetic_code', 'episode_of_id', 'season_nr', 'episode_nr',
                                                 'series_years', 'md5sum'],
-                           irrelevant_attributes=['episode_of_id', 'title', 'imdb_id', 'md5sum'],
+                           irrelevant_attributes=['episode_of_id', 'title', 'imdb_id', 'md5sum',
+                                                    'imdb_index', 'phonetic_code', 'series_years'],
                            no_compression=['kind_id'],
                            csv_file_location=csv_path.format('title'),
                            table_size=2528312))

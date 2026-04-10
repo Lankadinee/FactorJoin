@@ -553,7 +553,8 @@ def naive_bucketize(data, sample_rate, n_bins=30, primary_keys=[], return_data=T
             if len(idx) == 0:
                 bin_mode = 0
             else:
-                bin_mode = stats.mode(data_key[idx]).count[0]
+                mode_result = stats.mode(data_key[idx], keepdims=True)
+                bin_mode = mode_result.count[0]
                 temp_data_key[idx] = i
             key_bin_mode.append(bin_mode/sample_rate[key])
         best_buckets[key] = Bucket(key, [], key_bin_mode)
@@ -601,7 +602,8 @@ def bin_all_data_with_existing_binning(bins, data, sample_rate, curr_pk, return_
             if len(curr_data) == 0:
                 bin_modes.append(0)
             else:
-                bin_mode = stats.mode(curr_data).count[0]
+                mode_result = stats.mode(curr_data, keepdims=True)
+                bin_mode = mode_result.count[0]
                 if bin_mode > 1:
                     bin_mode /= sample_rate[key]
                 bin_modes.append(bin_mode)
@@ -649,7 +651,7 @@ def update_bins(bucket, data, equivalent_keys):
             if len(temp_data[temp_idx]) != 0:
                 temp_data[temp_idx] = v
                 unique_remain = np.setdiff1d(unique_remain, b)
-                new_bin_mode.append(stats.mode(key_data[temp_idx]).count[0])
+                new_bin_mode.append(stats.mode(key_data[temp_idx], keepdims=True).count[0])
             else:
                 new_bin_mode.append(0)
         if len(unique_remain) > 0:

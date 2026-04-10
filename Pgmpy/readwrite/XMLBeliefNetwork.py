@@ -15,8 +15,8 @@ except ImportError:
         # commented out as causing problem with dictionary attributes
         print("Failed to import ElementTree from any known place")
 
-from pgmpy.models import BayesianModel
-from pgmpy.factors.discrete import TabularCPD
+from Pgmpy.models import BayesianModel
+from Pgmpy.factors.discrete import TabularCPD
 
 
 class XBNReader(object):

@@ -8,8 +8,8 @@ from math import sqrt
 import numpy as np
 from tqdm import tqdm
 
-from pgmpy.utils import _check_1d_array_object, _check_length_equal
-from pgmpy.sampling import (
+from Pgmpy.utils import _check_1d_array_object, _check_length_equal
+from Pgmpy.sampling import (
     LeapFrog,
     BaseSimulateHamiltonianDynamics,
     BaseGradLogPDF,

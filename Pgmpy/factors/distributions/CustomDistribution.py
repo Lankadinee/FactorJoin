@@ -1,7 +1,7 @@
 import numpy as np
 from scipy import integrate
 
-from pgmpy.factors.distributions import BaseDistribution
+from Pgmpy.factors.distributions import BaseDistribution
 
 
 class CustomDistribution(BaseDistribution):

@@ -199,8 +199,11 @@ def read_table_csv(table_obj, csv_seperator=',', db_name="stats"):
     """
     Reads csv from path, renames columns and drops unnecessary columns
     """
-    if db_name == "stats" or db_name == "imdb-light":
+    if db_name == "stats":
         df_rows = pd.read_csv(table_obj.csv_file_location)
+    elif db_name == "imdb-light":
+        df_rows = pd.read_csv(table_obj.csv_file_location, header=None, escapechar='\\', encoding='utf-8',
+                              quotechar='"', sep=csv_seperator)
     elif db_name == "ssb":
         df_rows = pd.read_csv(table_obj.csv_file_location, header=None, escapechar='\\', sep="|",
                               encoding="ISO-8859-1", quotechar='"')
@@ -400,11 +403,11 @@ def process_stats_data(dataset, data_path, model_folder, n_bins=500, bucket_meth
             if dataset == "stats":
                 df_rows = read_table_csv(table_obj, db_name="stats")
             else:
-                df_rows = pd.read_csv(table_obj.csv_file_location)
+                df_rows = read_table_csv(table_obj, db_name=dataset)
         for attr in df_rows.columns:
             if attr in all_keys:
                 table_key_lens[attr] = len(df_rows)
-                key_data[attr] = df_rows[attr].values
+                key_data[attr] = df_rows[attr].values.astype(float)
                 # the nan value of id are set to -1, this is hardcoded.
                 key_data[attr][np.isnan(key_data[attr])] = -1
                 key_data[attr][key_data[attr] < 0] = -1
@@ -419,8 +422,11 @@ def process_stats_data(dataset, data_path, model_folder, n_bins=500, bucket_meth
                 key_attrs[table_name].append(attr)
             else:
                 temp = df_rows[attr].values
-                null_values[table_name][attr] = np.nanmin(temp) - 100
-                temp[np.isnan(temp)] = null_values[table_name][attr]
+                if temp.dtype.kind in ('U', 'S', 'O'):
+                    null_values[table_name][attr] = None
+                else:
+                    null_values[table_name][attr] = np.nanmin(temp) - 100
+                    temp[np.isnan(temp)] = null_values[table_name][attr]
         data[table_name] = df_rows
 
     all_bin_modes = dict()
