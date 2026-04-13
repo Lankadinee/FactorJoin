@@ -84,8 +84,10 @@ class Bound_ensemble:
                 op = cond[1]
                 value = cond[2]
                 if "Date" in attr:
-                    assert "::timestamp" in value  # this is hardcoded for STATS-CEB workload
-                    value = timestamp_transorform(value.strip().split("::timestamp")[0])
+                    if isinstance(value, str) and "::timestamp" in value:
+                        value = timestamp_transorform(value.strip().split("::timestamp")[0])
+                    elif isinstance(value, (int, float)):
+                        value = int(value)
                 if table not in table_query:
                     table_query[table] = dict()
                 succeed = construct_table_query(self.bns[table], table_query[table], attr, op, value)

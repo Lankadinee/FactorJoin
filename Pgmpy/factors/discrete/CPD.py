@@ -131,7 +131,7 @@ class TabularCPD(DiscreteFactor):
         if evidence is None:
             expected_cpd_shape = (variable_card, 1)
         else:
-            expected_cpd_shape = (variable_card, np.product(evidence_card))
+            expected_cpd_shape = (variable_card, np.prod(evidence_card))
         if values.shape != expected_cpd_shape:
             raise ValueError(
                 f"values must be of shape {expected_cpd_shape}. Got shape: {values.shape}"

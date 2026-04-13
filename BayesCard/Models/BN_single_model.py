@@ -356,7 +356,7 @@ class BN_Single():
             sample_discrete_table = discrete_table
         else:
             sample_discrete_table = discrete_table.sample(n=rows_to_use)
-        if pomegranate.__version__ >= "0.13.0":
+        if pomegranate.__version__ >= "1.0":
             from pomegranate.bayesian_network import _learn_structure
             import torch
             discrete_table_torch = torch.from_numpy(sample_discrete_table.values).to(torch.int64)

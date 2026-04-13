@@ -70,10 +70,10 @@ class DiscreteFactor(BaseFactor, StateNameMixin):
                 "Number of elements in cardinality must be equal to number of variables"
             )
 
-        if values.size != np.product(cardinality):
+        if values.size != np.prod(cardinality):
             raise ValueError(
                 "Values array must be of size: {size}".format(
-                    size=np.product(cardinality)
+                    size=np.prod(cardinality)
                 )
             )
 
@@ -555,7 +555,7 @@ class DiscreteFactor(BaseFactor, StateNameMixin):
             self.to_factor()
             .marginalize(self.scope()[:1], inplace=False)
             .values.flatten("C"),
-            np.ones(np.product(self.cardinality[:0:-1])),
+            np.ones(np.prod(self.cardinality[:0:-1])),
             atol=0.01,
         )
 

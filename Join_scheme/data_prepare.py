@@ -296,7 +296,7 @@ def generate_table_bucket_means(data, binned_data, key_attrs, bin_sizes, all_bin
                 temp_data = key_data[key_binned_data[:, 0] == v1]
                 if len(temp_data) == 0:
                     continue
-                for v2, b2 in range(len(optimal_buckets[key2].bins)):
+                for v2 in range(len(optimal_buckets[key2].bins)):
                     temp_data2 = copy.deepcopy(temp_data[temp_binned_data[:, 1] == v2])
                     if len(temp_data2) == 0:
                         continue

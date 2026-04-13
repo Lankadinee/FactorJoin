@@ -422,7 +422,7 @@ def sub_optimal_bucketize(data, sample_rate, n_bins=30, primary_keys=[], return_
         if key not in primary_keys:
             unique_values[key] = np.unique(data[key], return_counts=True)
 
-    best_variance_score = np.infty
+    best_variance_score = np.inf
     best_bin_len = 0
     best_start_key = None
     best_buckets = None

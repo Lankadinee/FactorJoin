@@ -1,0 +1,20 @@
+[project]
+name = "factorjoin"
+version = "0.1.0"
+description = "FactorJoin: Cardinality Estimation Framework for Join Queries"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy",
+    "numba",
+    "pandas",
+    "scipy",
+    "pgmpy",
+    "networkx",
+    "joblib",
+    "psycopg2-binary",
+    "scikit-learn",
+    "sqlparse",
+    "jenkspy",
+    "pomegranate>=0.14",
+]
